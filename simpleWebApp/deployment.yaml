@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simplewebapp-deployment
+  labels:
+    app: simplewebapp-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simplewebapp
+  template:
+    metadata:
+      labels:
+        app: simplewebapp
+    spec:
+      containers:
+      - name: simplewebapplication
+        image: poojadocker99/simplewebapp:v0.2
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: simplewebapp-service
+  labels:
+    app: simplewebapp
+spec:
+  selector:
+    app: simplewebapp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+      nodePort: 30080  
+  type: NodePort
