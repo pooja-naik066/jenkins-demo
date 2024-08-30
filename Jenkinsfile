@@ -10,6 +10,11 @@ pipeline {
         }
         stage('Test') {
             steps {
+                script {
+                    // Compile the Java file
+                    sh 'javac HelloWorld.java'
+                    sh 'java HelloWorld'
+                }
                 echo 'Testing...'
             }
         }
